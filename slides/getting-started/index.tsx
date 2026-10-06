@@ -3808,20 +3808,9 @@ const Cover: Page = () => {
       </div>
       <h1
         className="gs gs-rise"
-        style={{
-          position: 'absolute',
-          left: 120,
-          top: 330,
-          margin: 0,
-          maxWidth: 1500,
-          fontFamily: font.display,
-          fontSize: 'var(--osd-size-hero)',
-          fontWeight: 500,
-          letterSpacing: '-0.04em',
-          lineHeight: 1.02,
-          animationDelay: '0.1s',
-        }}
+        style={{ position: 'absolute', left: 120, top: 330, margin: 0, maxWidth: 1500, fontFamily: font.display, fontSize: 'var(--osd-size-hero)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1.02, animationDelay: '0.1s', translate: '28px -31.28px' }}
       >
+        {/* @slide-comment id="c-7e74e5eb" ts="2026-10-06T00:35:14.678Z" text="eyJub3RlIjoiY2hhbmdlIHRpdGxlIHRvcGljIHRvIGJsdWUgYXJjaGl2ZSBnYW1lIn0" */}
         The slide framework
         <br />
         built for agents.
@@ -5516,9 +5505,9 @@ PresentPage.transition = morphFade;
 
 export const notes: (string | undefined)[] = [
   'Welcome. This deck is the getting-started tour. Arrow keys move, F goes fullscreen, P opens this presenter view.',
+  'Prompt your agent with /create-slide. Pages stream into the rail as the file is written.',
   'Every slide is a plain React file. The default export is the array of pages, in order.',
   'One command scaffolds the workspace: dependencies, git, and a dev server ready to go.',
-  'Prompt your agent with /create-slide. Pages stream into the rail as the file is written.',
   'Switch to Edit, click any element, and change it in the Format panel. Save writes the whole batch once.',
   'The Arrange tab and smart guides handle position, size, rotation, and layer order.',
   'Leave a note on an element. It lands in the source as an @slide-comment marker.',
@@ -5542,9 +5531,9 @@ export const meta: SlideMeta = {
 
 export default [
   Cover,
+  PromptPage,
   FilePage,
   InitPage,
-  PromptPage,
   EditPage,
   ArrangePage,
   CommentPage,

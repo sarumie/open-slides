@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "open-slide dev",
+    "dev": "bun dev.ts",
+    "dev:local": "open-slide dev",
     "build": "open-slide build",
     "preview": "open-slide preview",
     "sync:skills": "open-slide sync:skills"
