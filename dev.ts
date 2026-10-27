@@ -60,10 +60,21 @@ if (provider === 'cloudflared') {
     }
   })();
 } else {
-  tunnelProc = spawn(['bunx', 'ngrok', 'http', String(port)], {
+  // bunx fails to spawn ngrok's bundled native binary on Windows ("could not create process"),
+  // so fall back to npx there; everywhere else bunx is fine.
+  const runner = process.platform === 'win32' ? ['npx', '--yes', 'ngrok'] : ['bunx', 'ngrok'];
+  const proc = spawn([...runner, 'http', String(port)], {
     stdout: 'ignore',
-    stderr: 'ignore',
+    stderr: 'pipe',
   });
+  tunnelProc = proc;
+
+  // ngrok writes its failure reason to stderr and exits; surface it instead of hanging silently.
+  let stderrTail = '';
+  const stderrDone = (async () => {
+    const decoder = new TextDecoder();
+    for await (const chunk of proc.stderr) stderrTail = (stderrTail + decoder.decode(chunk)).slice(-2000);
+  })();
 
   // Poll ngrok local API until tunnel is established and print URL
   (async () => {
@@ -76,13 +87,19 @@ if (provider === 'cloudflared') {
           const url = data.tunnels?.[0]?.public_url;
           if (url) {
             console.log(`\n  \x1b[32m➜\x1b[0m  \x1b[1mNgrok:\x1b[0m      \x1b[36m${url}\x1b[0m\n`);
-            break;
+            return;
           }
         }
       } catch {
         // ngrok not ready yet
       }
+      if (proc.exitCode !== null) break;
     }
+    await proc.exited;
+    await stderrDone;
+    console.error(
+      `\n  \x1b[31m➜\x1b[0m  \x1b[1mNgrok:\x1b[0m no tunnel after 10s${stderrTail ? `\n${stderrTail.trim()}` : ''}\n`,
+    );
   })();
 }
 
