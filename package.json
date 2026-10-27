@@ -8,15 +8,18 @@
     "dev:local": "open-slide dev",
     "build": "open-slide build",
     "preview": "open-slide preview",
-    "sync:skills": "open-slide sync:skills"
+    "sync:skills": "open-slide sync:skills",
+    "test": "bun run presenter-sync.check.ts"
   },
   "dependencies": {
-    "@open-slide/core": "^2.0.0",
+    "@open-slide/core": "^2.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5"
+    "@types/react-dom": "^19.2.5",
+    "prompts": "^2.4.2",
+    "ws": "^8.22.0"
   }
 }

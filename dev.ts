@@ -40,7 +40,7 @@ const port = server.config.server.port ?? 5173;
 let tunnelProc: ReturnType<typeof spawn> | null = null;
 
 if (provider === 'cloudflared') {
-  tunnelProc = spawn(['npx', 'cloudflared', 'tunnel', '--url', `http://localhost:${port}`], {
+  tunnelProc = spawn(['bunx', 'cloudflared', 'tunnel', '--url', `http://localhost:${port}`], {
     stdout: 'pipe',
     stderr: 'pipe',
   });
@@ -60,7 +60,7 @@ if (provider === 'cloudflared') {
     }
   })();
 } else {
-  tunnelProc = spawn(['npx', 'ngrok', 'http', String(port)], {
+  tunnelProc = spawn(['bunx', 'ngrok', 'http', String(port)], {
     stdout: 'ignore',
     stderr: 'ignore',
   });
