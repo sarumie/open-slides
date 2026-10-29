@@ -167,17 +167,7 @@ const Indikator: Page = () => (
 
 const AgendaItem = ({ delay, n, t, d, last }: { delay: number; n: string; t: string; d: string; last: boolean }) => (
   <div
-    style={{
-      ...fade(delay),
-      display: 'flex',
-      alignItems: 'center',
-      gap: 40,
-      padding: '28px 40px',
-      marginBottom: 28,
-      background: surface,
-      borderLeft: `6px solid ${last ? primary : 'var(--osd-accent)'}`,
-      borderRadius: 'var(--osd-radius)',
-    }}
+    style={{ ...fade(delay), display: 'flex', alignItems: 'center', gap: 40, padding: '28px 40px', marginBottom: 28, background: surface, borderLeft: `6px solid ${last ? primary : 'var(--osd-accent)'}`, borderRadius: 'var(--osd-radius)', color: '#8fae3c' }}
   >
     <span style={{ fontSize: 44, fontWeight: 700, color: 'var(--osd-accent)', fontFamily: 'var(--osd-font-display)', letterSpacing: '0.02em' }}>
       {n}
@@ -225,7 +215,7 @@ const Harta: Page = () => (
       </Step>
       <Step duration={300}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          <Card n="7" t="Penghasilan & profesi" d="Gaji, honor, upah — keputusan Tarjih, wajib" accent />
+          <Card n="7" t="Penghasilan & profesi" d="Gaji, honor, upah — keputusan Tarjih, wajib" />
           <Card n="8" t="Hasil tambang" d="Kekayaan bumi yang digali" />
         </div>
       </Step>
@@ -234,7 +224,7 @@ const Harta: Page = () => (
   </div>
 );
 
-const Card = ({ n, t, d, accent = false }: { n: string; t: string; d: string; accent?: boolean }) => (
+const Card = ({ n, t, d }: { n: string; t: string; d: string }) => (
   <div
     style={{
       display: 'flex',
@@ -243,15 +233,14 @@ const Card = ({ n, t, d, accent = false }: { n: string; t: string; d: string; ac
       padding: '22px 32px',
       background: surface,
       borderRadius: 'var(--osd-radius)',
-      border: accent ? `2px solid ${primary}` : `1px solid ${line}`,
+      border: `1px solid ${line}`,
     }}
   >
     <span
       style={{
         fontSize: 30,
         fontWeight: 700,
-        color: accent ? surface : 'var(--osd-text)',
-        background: accent ? primary : 'transparent',
+        color: 'var(--osd-text)',
         width: 48,
         height: 48,
         borderRadius: 24,
@@ -283,11 +272,9 @@ const Profesi: Page = () => (
           margin: '24px 0 48px',
           lineHeight: 1.1,
         }}
-      >
-        Zakat profesi: wajib
-      </h2>
+      >Zakat Penghasilan/Profesi</h2>
       <p style={{ fontSize: 32, color: muted, maxWidth: 1300, lineHeight: 1.6, margin: '0 0 56px' }}>
-        Munas Tarjih XXV tahun 2000 menetapkan zakat profesi <b style={{ color: primary }}>wajib</b>, diqiyaskan kepada zakat mal.
+        {'Munas Tarjih XXV tahun 2000 menetapkan zakat penghasilan sebagai '}<b style={{ color: primary }}>wajib</b>, diqiyaskan kepada zakat mal.
         Perhitungannya mengikuti ketentuan zakat harta.
       </p>
     </div>
@@ -336,7 +323,7 @@ const Contoh: Page = () => (
         <CalcRow delay={220} l="Nisab (85 gr × Rp 1.300.000)" v="Rp 110.500.000" />
         <div style={{ ...fade(340), display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 36px', background: 'var(--osd-accent)', borderRadius: 'var(--osd-radius)' }}>
           <span style={{ fontSize: 30, fontWeight: 600 }}>Penghasilan ≥ nisab → wajib zakat</span>
-          <span style={{ fontSize: 36, fontWeight: 700 }}>✓</span>
+          <span style={{ fontSize: 36, fontWeight: 700 }}>{''}</span>
         </div>
       </div>
       <div style={{ ...fade(420), flex: 1, background: primary, color: surface, borderRadius: 'var(--osd-radius)', padding: '40px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -436,9 +423,6 @@ const UU: Page = () => (
         </div>
       </Step>
     </Steps>
-    <div style={{ ...fade(420), marginTop: 40, fontSize: 28, color: muted, maxWidth: 1300 }}>
-      Ikhlas tetap hitungan akhirat — pengurang pajak hanyalah bonus dari negara.
-    </div>
     <Footer />
   </div>
 );
@@ -465,7 +449,9 @@ const Penutup: Page = () => (
     >
       Zakat bukan beban.
       <br />
-      Ia <span style={{ color: primary, fontWeight: 400 }}>membersihkan harta</span>.
+      Ia <span style={{ color: primary, fontWeight: 400 }}>membersihkan harta</span> —
+      <br />
+      dan menumbuhkan yang memberi.
     </h2>
     <p style={{ ...fade(160), fontSize: 32, color: muted, maxWidth: 1100, lineHeight: 1.6 }}>
       Kenali harta wajib zakat, hitung dengan benar, tunaikan lewat BAZNAS/LAZ.
@@ -484,3 +470,28 @@ export const meta: SlideMeta = {
 };
 
 export default [Cover, Indikator, Harta, Profesi, Contoh, Banding, UU, Penutup] satisfies Page[];
+
+export const notes: (string | undefined)[] = [
+  `Assalamu'alaikum. Hari ini kita bahas harta yang wajib dizakati — rujukannya Majelis Tarjih Muhammadiyah dan UU No. 23 Tahun 2011.
+Target kita 15 menit, sisanya untuk tanya jawab. Jadi tolong catat pertanyaan, jangan dipotong di tengah.`,
+  `Peta materinya tiga. Pertama, harta apa saja yang kena zakat. Kedua, zakat versus pajak, termasuk dasar hukumnya. Ketiga, keputusan Majelis Tarjih untuk persoalan zakat masa kini.
+Kalau ketiganya paham, praktik di rumah tinggal hitung.`,
+  `Delapan kelompok harta. Emas dan perak, uang dan tabungan, hasil pertanian, perdagangan, peternakan, rikaz, penghasilan profesi, dan hasil tambang.
+Dua angka yang sering ditanya: pertanian itu 5 persen kalau pakai irigasi berbayar, 10 persen kalau tadah hujan. Rikaz langsung 20 persen, tanpa nisab dan tanpa haul.
+Nomor tujuh, penghasilan dan profesi, yang paling relevan buat kita. Itu keputusan Tarjih, dan wajib.`,
+  `Munas Tarjih XXV tahun 2000 menetapkan zakat penghasilan wajib, diqiyaskan ke zakat mal. Maka alat ukurnya ikut zakat harta.
+Nisabnya 85 gram emas 24 karat. Kadarnya 2,5 persen dari penghasilan bersih. Haulnya satu tahun, dihitung dari penghasilan dua belas bulan.
+Dalilnya QS. At-Taubah 103, dan hadis riwayat Muslim: dahulukan dirimu, lalu keluargamu.`,
+  `Contoh konkret. Gaji bersih 10 juta per bulan, berarti 120 juta setahun.
+Nisab 85 gram dikali harga emas 1,3 juta, hasilnya 110,5 juta. Karena penghasilan lewat nisab, wajib zakat.
+Zakatnya 2,5 persen dari 120 juta, sama dengan 3 juta setahun, atau sekitar 250 ribu per bulan. Angka inilah yang ditanya jamaah paling sering.`,
+  `Empat aspek: dasar, sifat, tujuan, pengelola. Zakat dasarnya syariat dan berstatus ibadah, pajak dasarnya undang-undang dan berstatus kewajiban warga negara.
+Pengelolanya pun beda: BAZNAS atau LAZ untuk zakat, DJP untuk pajak.
+Kalimat kuncinya: zakat tidak menggugurkan pajak, dan pajak tidak menggugurkan zakat. Keduanya berjalan sendiri-sendiri.`,
+  `UU 23 Tahun 2011 menggantikan UU 38 Tahun 1999. Pasal 22 yang perlu diingat: zakat yang dibayar muzaki lewat BAZNAS atau LAZ dikurangkan dari penghasilan kena pajak.
+Syaratnya dua. Bayar lewat lembaga resmi, bukan langsung ke mustahik. Lalu pengurangnya diakui saat lapor pajak, jadi simpan bukti setor.
+Jadi urutannya: tunaikan zakat dulu, baru hitung pajak.`,
+  `Tiga hal yang kita bawa pulang. Kenali harta yang wajib dizakati. Hitung dengan nisab dan kadar yang benar. Tunaikan lewat BAZNAS atau LAZ supaya sah secara syariat sekaligus tercatat untuk pengurang pajak.
+Zakat bukan beban. Ia membersihkan harta, dan menumbuhkan yang memberi.
+Saya buka diskusi. Silakan pertanyaan, terutama soal kasus harta masing-masing.`,
+];

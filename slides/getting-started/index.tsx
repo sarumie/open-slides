@@ -3810,8 +3810,7 @@ const Cover: Page = () => {
         className="gs gs-rise"
         style={{ position: 'absolute', left: 120, top: 330, margin: 0, maxWidth: 1500, fontFamily: font.display, fontSize: 'var(--osd-size-hero)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1.02, animationDelay: '0.1s', translate: '28px -31.28px' }}
       >
-        {/* @slide-comment id="c-7e74e5eb" ts="2026-10-06T00:35:14.678Z" text="eyJub3RlIjoiY2hhbmdlIHRpdGxlIHRvcGljIHRvIGJsdWUgYXJjaGl2ZSBnYW1lIn0" */}
-        The slide framework
+        The Blue Archive game
         <br />
         built for agents.
       </h1>
